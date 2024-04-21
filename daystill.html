@@ -62,8 +62,8 @@ function calculateTimeRemaining() {
 function updateCountdown() {
   var time = calculateTimeRemaining();
 
-  document.getElementById("countdown").innerHTML = "Months: " + time.months + ", Days: " + time.days + ", Hours: "
-  + time.hours + ", Minutes: " + time.minutes + ", Seconds: " + time.seconds;
+  document.getElementById("countdown").innerHTML = "M: " + time.months + ", D: " + time.days + ", H: "
+  + time.hours + ", S: " + time.seconds;
 
   setTimeout(updateCountdown, 1000); // Update every second
 }
