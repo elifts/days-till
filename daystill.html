@@ -15,9 +15,9 @@
 <style>
   #countdown {
     font-family: Arial, sans-serif;
-    font-size: 18px;
+    font-size: 24px;
     color: rgb(255, 255, 255);
-    font-weight: 400;
+    font-weight: bolder;
     text-align: center;
     margin-top: 0px;
     margin-bottom: 0px;
@@ -25,7 +25,7 @@
   }
 </style>
 </head>
-<body style="background-color: #6800ff;font-family:Inter,sans-serif;
+<body style="background-color: rgb(25, 25, 25);font-family:Inter,sans-serif;
     margin-top: 0px;
     margin-right: 0px;
     margin-left: 0px;
@@ -33,7 +33,7 @@
 ">
 <div class="parent">
   <div>
-    <h1 style="color: rgb(255, 255, 255);font-weight: bolder;text-align: center;font-size: 22px;margin-top: 0px;">Days until birthday</h1>
+    <h1 style="color: rgb(255, 255, 255);font-weight: bolder;text-align: center;font-size: 20px;margin-top: 0px;">Days until birthday</h1>
     <div id="countdown"></div>
   </div>
 </div>
@@ -45,15 +45,16 @@ function calculateTimeRemaining() {
   
   var timeDifference = targetDate.getTime() - now.getTime();
 
-  var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-  var months = Math.floor(days / 30);
+  var totalMonths = timeDifference / (1000 * 60 * 60 * 24 * 30);
+  var months = Math.floor(totalMonths);
+  var days = Math.floor((totalMonths - months) * 30);
   var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
   var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
 
   return {
-    'days': days,
     'months': months,
+    'days': days,
     'hours': hours,
     'minutes': minutes,
     'seconds': seconds
@@ -64,8 +65,8 @@ function calculateTimeRemaining() {
 function updateCountdown() {
   var time = calculateTimeRemaining();
 
-  document.getElementById("countdown").innerHTML = time.months + "m " + time.days + "d "
-  + time.hours + "h " + time.seconds + "s";
+  document.getElementById("countdown").innerHTML = "M: " + time.months + ", D: " + time.days + ", H: "
+  + time.hours + ", M: " + time.minutes + ", S: " + time.seconds;
 
   setTimeout(updateCountdown, 1000); // Update every second
 }
@@ -76,3 +77,4 @@ updateCountdown();
 
 </body>
 </html>
+    
