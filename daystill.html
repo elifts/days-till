@@ -1,84 +1,81 @@
 <!DOCTYPE html>
-<html lang="en" style="width: 100%;
-							height: 100%;
-							display: flex;
-							justify-content: center;
-							align-items: center;">
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Countdown Timer</title>
   <style>
+    body {
+      background-color: #6800ff;
+      font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+      margin: 0;
+      padding: 0;
+    }
+
     .parent {
       display: flex;
-      justify-content: center; /* Horizontally center */
-      align-items: center; /* Vertically center */
-      height: 90vh; /* Ensure full viewport height */
+      justify-content: center;
+      align-items: center;
+      height: 90vh;
+    }
+
+    #countdown {
+      font-size: 16px;
+      line-height: 24px;
+      color: rgb(255, 255, 255);
+      font-weight: 400;
+      text-align: center;
+      margin-top: 0px;
+      margin-bottom: 0px;
     }
   </style>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Countdown Timer</title>
-<style>
-  #countdown {
-
-    font-size: 16px;
-    line-height: 24px;
-    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
-    color: rgb(255, 255, 255);
-    font-weight: 400;
-    text-align: center;
-    margin-top: 0px;
-    margin-bottom: 0px;
-  }
-</style>
 </head>
-<body style="background-color: #6800ff;font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
-    margin-top: 0px;
-    margin-right: 0px;
-    margin-left: 0px;
-    margin-bottom: 0px;
-">
-<div class="parent">
-  <div>
-    <h1 style="line-height: 24px;color: rgb(255, 255, 255);font-weight: bolder;text-align: center;font-size: 22px;margin-top: 0px;margin-bottom: 0px;padding-bottom: 5px;">Days until birthday</h1>
-    <div id="countdown"></div>
+<body>
+  <div class="parent">
+    <div>
+      <h1 style="line-height: 24px;color: rgb(255, 255, 255);font-weight: bolder;text-align: center;font-size: 22px;margin-top: 0px;margin-bottom: 0px;padding-bottom: 5px;">Days until birthday</h1>
+      <div id="countdown"></div>
+    </div>
   </div>
-</div>
-<script>
-// Function to calculate the time remaining until a specific date
-function calculateTimeRemaining() {
-  var now = new Date();
-  var targetDate = new Date("September 19, " + now.getFullYear());
-  
-  var timeDifference = targetDate.getTime() - now.getTime();
 
-  var totalMonths = timeDifference / (1000 * 60 * 60 * 24 * 30);
-var months = Math.floor(totalMonths);
-var days = Math.floor((totalMonths - months) * 30);
-  var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-  var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+  <script>
+    // Function to calculate the time remaining until a specific date
+    function calculateTimeRemaining() {
+      var now = new Date();
+      var targetDate = new Date(now.getFullYear(), 8, 19); // September is month index 8
 
-  return {
-    'days': days,
-    'months': months,
-    'hours': hours,
-    'minutes': minutes,
-    'seconds': seconds
-  };
-}
+      var timeDifference = targetDate.getTime() - now.getTime();
 
-// Function to update the countdown timer
-function updateCountdown() {
-  var time = calculateTimeRemaining();
+      var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      var months = Math.floor(days / 30); // Assuming 30 days in a month
 
-  document.getElementById("countdown").innerHTML = time.months + "m " + time.days + "d "
-  + time.hours + "h " + time.seconds + "s";
+      days = days % 30;
 
-  setTimeout(updateCountdown, 1000); // Update every second
-}
+      var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
 
-// Initial call to start the countdown
-updateCountdown();
-</script>
+      return {
+        'days': days,
+        'months': months,
+        'hours': hours,
+        'minutes': minutes,
+        'seconds': seconds
+      };
+    }
 
+    // Function to update the countdown timer
+    function updateCountdown() {
+      var time = calculateTimeRemaining();
+
+      document.getElementById("countdown").innerHTML = time.months + "m " + time.days + "d "
+      + time.hours + "h " + time.seconds + "s";
+
+      setTimeout(updateCountdown, 1000); // Update every second
+    }
+
+    // Initial call to start the countdown
+    updateCountdown();
+  </script>
 </body>
 </html>
